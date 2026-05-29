@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import Link from 'next/link'
 import { Cpu, Github, Twitter } from 'lucide-react'
 
 export default function Footer() {
@@ -41,7 +41,7 @@ export default function Footer() {
                 { href: '/jogos', label: 'Compatibilidade' },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link to={link.href} className="text-slate-500 hover:text-[#00D4FF] text-sm font-inter transition-colors">
+                  <Link href={link.href} className="text-slate-500 hover:text-[#00D4FF] text-sm font-inter transition-colors">
                     {link.label}
                   </Link>
                 </li>
