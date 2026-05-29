@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { Globe, Github, Server, CheckCircle, Copy, ExternalLink, ChevronDown, ChevronUp, Terminal, Zap, Database } from 'lucide-react'
+import { Globe, Github, Server, CircleCheck as CheckCircle, Copy, ExternalLink, ChevronDown, ChevronUp, Terminal, Zap, Database } from 'lucide-react'
 
 function CodeBlock({ code, lang = 'bash' }: { code: string; lang?: string }) {
   const [copied, setCopied] = useState(false)

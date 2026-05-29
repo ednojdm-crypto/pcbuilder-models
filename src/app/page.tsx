@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import { ChevronRight, Zap, BarChart2, Gamepad2, Globe, ArrowRight, Star, TrendingDown, Monitor } from 'lucide-react'
+import { ChevronRight, Zap, ChartBar as BarChart2, Gamepad2, Globe, ArrowRight, Star, TrendingDown, Monitor } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 

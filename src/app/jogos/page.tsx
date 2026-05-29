@@ -15,7 +15,7 @@ import {
 } from '@/data/parts'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { Gamepad2, Monitor, Cpu, Zap, CheckCircle, XCircle, AlertCircle, Star, ChevronRight } from 'lucide-react'
+import { Gamepad2, Monitor, Cpu, Zap, CircleCheck as CheckCircle, Circle as XCircle, CircleAlert as AlertCircle, Star, ChevronRight } from 'lucide-react'
 
 const EMPTY_BUILD: PCBuild = {
   cpu: null, gpu: null, ram: null, motherboard: null,
