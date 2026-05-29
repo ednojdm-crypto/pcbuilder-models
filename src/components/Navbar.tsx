@@ -1,7 +1,5 @@
-'use client'
-
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import { Menu, X, Cpu, ChevronRight } from 'lucide-react'
 
 const navLinks = [
@@ -32,7 +30,7 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#00D4FF] to-[#7C3AED] flex items-center justify-center neon-blue">
             <Cpu size={16} className="text-white" />
           </div>
@@ -47,7 +45,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               className="px-4 py-2 rounded-lg font-rajdhani font-500 text-sm text-slate-400 hover:text-[#00D4FF] hover:bg-[#00D4FF]/5 transition-all duration-200 tracking-wide"
             >
               {link.label}
@@ -57,7 +55,7 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <Link
-          href="/configurador"
+          to="/configurador"
           className="hidden md:flex items-center gap-2 px-5 py-2 rounded-lg bg-gradient-to-r from-[#00D4FF] to-[#7C3AED] text-white font-rajdhani font-600 text-sm tracking-wide hover:opacity-90 transition-all hover:scale-105 neon-blue"
         >
           Montar Agora
@@ -79,7 +77,7 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               onClick={() => setOpen(false)}
               className="px-4 py-3 rounded-lg font-rajdhani text-slate-300 hover:text-[#00D4FF] hover:bg-[#00D4FF]/5 transition-all"
             >
@@ -87,7 +85,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/configurador"
+            to="/configurador"
             onClick={() => setOpen(false)}
             className="mt-2 px-5 py-3 rounded-lg bg-gradient-to-r from-[#00D4FF] to-[#7C3AED] text-white font-rajdhani font-600 text-center tracking-wide"
           >

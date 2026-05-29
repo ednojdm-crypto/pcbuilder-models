@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -408,7 +406,7 @@ Build output directory: .next`} lang="config" />
   name: 'GeForce RTX 4060',
   // Antes (local, só dev):
   // image: '/parts/gpu-rtx4060.png',
-  
+
   // Depois (R2, produção):
   image: 'https://pub-SEU_ID.r2.dev/gpu/rtx-4060.glb',
 }
@@ -494,7 +492,7 @@ async function fetchPrice(storeUrl) {
 async function main() {
   for (const part of PARTS) {
     const kabumPrice = await fetchPrice(\`https://kabum.com.br/produto/\${part.kabumId}\`)
-    
+
     // Salva no banco
     await fetch(process.env.SUPABASE_URL + '/rest/v1/prices', {
       method: 'POST',
@@ -508,7 +506,7 @@ async function main() {
         price: kabumPrice,
       })
     })
-    
+
     console.log(\`✅ \${part.id} - Kabum: R$ \${kabumPrice}\`)
   }
 }

@@ -32,7 +32,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -47,7 +46,6 @@ body {
   background: var(--neon-blue);
 }
 
-/* Glass Card */
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(20px);
@@ -55,7 +53,6 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Neon Glow Effects */
 .neon-blue {
   box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 60px rgba(0, 212, 255, 0.1);
 }
@@ -69,15 +66,13 @@ body {
   text-shadow: 0 0 10px rgba(124, 58, 237, 0.8), 0 0 30px rgba(124, 58, 237, 0.4);
 }
 
-/* Grid Background */
 .grid-bg {
-  background-image: 
+  background-image:
     linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
 }
 
-/* Scan line effect */
 .scan-overlay::after {
   content: '';
   position: fixed;
@@ -91,19 +86,16 @@ body {
   z-index: 9999;
 }
 
-/* Price Tag */
 .price-tag {
   background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1));
   border: 1px solid rgba(0, 212, 255, 0.2);
 }
 
-/* Component Card Active */
 .component-card-active {
   border-color: var(--neon-blue);
   box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 212, 255, 0.05);
 }
 
-/* Animated gradient border */
 .gradient-border {
   position: relative;
 }
@@ -120,7 +112,6 @@ body {
   border-radius: inherit;
 }
 
-/* Tooltip */
 .tooltip {
   position: relative;
 }
@@ -141,7 +132,6 @@ body {
   z-index: 100;
 }
 
-/* Loading Spinner */
 .spinner {
   border: 2px solid rgba(0, 212, 255, 0.1);
   border-top-color: #00D4FF;
@@ -153,7 +143,6 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* Responsive canvas */
 canvas {
   touch-action: none;
 }

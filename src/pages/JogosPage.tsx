@@ -1,6 +1,5 @@
-'use client'
-
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   GAMES_CATALOG,
   PARTS_CATALOG,
@@ -363,8 +362,8 @@ export default function JogosPage() {
             )}
 
             {/* Go to configurator */}
-            <a
-              href="/configurador"
+            <Link
+              to="/configurador"
               className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[#00D4FF]/10 to-[#7C3AED]/10 border border-[#00D4FF]/20 hover:border-[#00D4FF]/40 transition-all group"
             >
               <div>
@@ -372,7 +371,7 @@ export default function JogosPage() {
                 <p className="text-slate-500 text-xs font-inter">Visualize seu PC completo</p>
               </div>
               <ChevronRight size={18} className="text-[#00D4FF] group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </div>
 
           {/* ── Main: Game Grid ── */}

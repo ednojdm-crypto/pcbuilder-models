@@ -1,15 +1,13 @@
-'use client'
-
 import { useState, Suspense, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Environment, Float, Text, Box, Cylinder, RoundedBox } from '@react-three/drei'
+import { OrbitControls, Environment, Float, Box, Cylinder, RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
 import { PARTS_CATALOG, PCBuild, PCPart, getLowestPrice, formatPrice, getBuildTotalPrice } from '@/data/parts'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { ShoppingCart, ChevronRight, RotateCcw, ExternalLink, Cpu, HardDrive, Zap, Server, Box as BoxIcon, Wind, Monitor } from 'lucide-react'
 
-// ── 3D PC Case Model ──
 function PCCase({ build }: { build: PCBuild }) {
   const groupRef = useRef<THREE.Group>(null)
 
@@ -26,22 +24,18 @@ function PCCase({ build }: { build: PCBuild }) {
 
   return (
     <group ref={groupRef} position={[0, -0.5, 0]}>
-      {/* Case body */}
       <RoundedBox args={[2.2, 3.5, 2.8]} radius={0.08} smoothness={4} position={[0, 0, 0]}>
         <meshStandardMaterial color="#0A0A1E" metalness={0.9} roughness={0.1} />
       </RoundedBox>
 
-      {/* Tempered glass side panel */}
       <RoundedBox args={[0.04, 3.3, 2.6]} radius={0.02} position={[1.12, 0, 0]}>
         <meshStandardMaterial color="#00D4FF" transparent opacity={0.08} metalness={0.5} roughness={0} />
       </RoundedBox>
 
-      {/* Motherboard tray (visible through glass) */}
       <Box args={[0.05, 2.4, 2.0]} position={[0.6, 0, 0]}>
         <meshStandardMaterial color="#1A1A3E" metalness={0.6} roughness={0.4} />
       </Box>
 
-      {/* CPU (if selected) */}
       {hasCPU && (
         <group position={[0.55, 0.5, 0.2]}>
           <Box args={[0.04, 0.35, 0.35]}>
@@ -52,7 +46,6 @@ function PCCase({ build }: { build: PCBuild }) {
               <Box args={[0.08, 0.5, 0.5]} position={[0, 0.4, 0]}>
                 <meshStandardMaterial color="#555" metalness={0.8} roughness={0.2} />
               </Box>
-              {/* Fan */}
               <Cylinder args={[0.2, 0.2, 0.04, 16]} position={[0.06, 0.4, 0]} rotation={[0, 0, Math.PI / 2]}>
                 <meshStandardMaterial color="#222" metalness={0.5} roughness={0.5} />
               </Cylinder>
@@ -61,7 +54,6 @@ function PCCase({ build }: { build: PCBuild }) {
         </group>
       )}
 
-      {/* RAM sticks (if selected) */}
       {hasRAM && (
         <>
           <Box args={[0.04, 0.8, 0.06]} position={[0.55, 0.5, -0.1]}>
@@ -73,41 +65,35 @@ function PCCase({ build }: { build: PCBuild }) {
         </>
       )}
 
-      {/* GPU (if selected) */}
       {hasGPU && (
         <group position={[0.5, -0.4, 0]}>
           <Box args={[0.08, 0.28, 1.2]}>
             <meshStandardMaterial color="#111" metalness={0.8} roughness={0.2} />
           </Box>
-          {/* GPU fans */}
           <Cylinder args={[0.1, 0.1, 0.04, 16]} position={[0.07, 0, 0.3]} rotation={[0, 0, Math.PI / 2]}>
             <meshStandardMaterial color="#1a1a1a" metalness={0.5} roughness={0.5} />
           </Cylinder>
           <Cylinder args={[0.1, 0.1, 0.04, 16]} position={[0.07, 0, -0.3]} rotation={[0, 0, Math.PI / 2]}>
             <meshStandardMaterial color="#1a1a1a" metalness={0.5} roughness={0.5} />
           </Cylinder>
-          {/* GPU RGB strip */}
           <Box args={[0.02, 0.02, 1.2]} position={[0.05, -0.15, 0]}>
             <meshStandardMaterial color="#00D4FF" emissive="#00D4FF" emissiveIntensity={1.5} />
           </Box>
         </group>
       )}
 
-      {/* Storage (if selected) */}
       {build.storage && (
         <Box args={[0.04, 0.08, 0.22]} position={[0.55, -0.9, 0.3]}>
           <meshStandardMaterial color="#222" metalness={0.9} roughness={0.1} />
         </Box>
       )}
 
-      {/* PSU */}
       {build.psu && (
         <Box args={[0.4, 0.35, 0.7]} position={[0, -1.4, -0.5]}>
           <meshStandardMaterial color="#111" metalness={0.8} roughness={0.2} />
         </Box>
       )}
 
-      {/* RGB ambient light strip */}
       <Box args={[0.01, 3.3, 0.01]} position={[0.95, 0, 1.35]}>
         <meshStandardMaterial color="#00D4FF" emissive="#00D4FF" emissiveIntensity={2} />
       </Box>
@@ -115,12 +101,10 @@ function PCCase({ build }: { build: PCBuild }) {
         <meshStandardMaterial color="#7C3AED" emissive="#7C3AED" emissiveIntensity={2} />
       </Box>
 
-      {/* Front panel mesh */}
       <Box args={[0.15, 3.5, 2.8]} position={[-1.0, 0, 0]}>
         <meshStandardMaterial color="#050510" metalness={0.95} roughness={0.05} />
       </Box>
 
-      {/* Power button */}
       <Cylinder args={[0.05, 0.05, 0.06, 16]} position={[-1.09, 1.4, -0.9]} rotation={[0, 0, Math.PI / 2]}>
         <meshStandardMaterial color="#00D4FF" emissive="#00D4FF" emissiveIntensity={1} />
       </Cylinder>
@@ -144,7 +128,6 @@ function EmptySlotCube({ color = '#7C3AED' }: { color?: string }) {
   )
 }
 
-// ── Category Config ──
 const CATEGORIES = [
   { key: 'cpu', label: 'Processador', icon: <Cpu size={16} />, color: '#00D4FF' },
   { key: 'gpu', label: 'Placa de Vídeo', icon: <Monitor size={16} />, color: '#F43F5E' },
@@ -163,7 +146,6 @@ const EMPTY_BUILD: PCBuild = {
   storage: null, psu: null, cooler: null, case: null,
 }
 
-// ── Price Comparison Card ──
 function PriceCard({ part }: { part: PCPart }) {
   const lowestStore = getLowestPrice(part)
   const prices = [
@@ -191,7 +173,7 @@ function PriceCard({ part }: { part: PCPart }) {
               }}
             >
               <div className="flex items-center gap-2">
-                {isLowest && <span className="text-[#00FF94] text-xs">✓</span>}
+                {isLowest && <span className="text-[#00FF94] text-xs">&#10003;</span>}
                 <span className="font-rajdhani text-sm" style={{ color: isLowest ? p.color : '#94A3B8' }}>
                   {p.store}
                 </span>
@@ -211,7 +193,6 @@ function PriceCard({ part }: { part: PCPart }) {
   )
 }
 
-// ── Main Page ──
 export default function ConfiguradorPage() {
   const [build, setBuild] = useState<PCBuild>(EMPTY_BUILD)
   const [activeCategory, setActiveCategory] = useState<CategoryKey>('cpu')
@@ -244,10 +225,8 @@ export default function ConfiguradorPage() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* ── LEFT: Category Selector + Parts ── */}
+          {/* LEFT: Category Selector + Parts */}
           <div className="lg:col-span-1 space-y-4">
-            {/* Category tabs */}
             <div className="glass-card rounded-2xl p-3 border border-white/5">
               <div className="grid grid-cols-2 gap-2">
                 {CATEGORIES.map((cat) => {
@@ -278,7 +257,6 @@ export default function ConfiguradorPage() {
               </div>
             </div>
 
-            {/* Part list for active category */}
             <div className="space-y-3">
               <p className="text-slate-500 text-xs font-rajdhani tracking-wider px-1">
                 ESCOLHER {currentCategory?.label.toUpperCase()}
@@ -309,7 +287,6 @@ export default function ConfiguradorPage() {
                         </div>
                       </div>
 
-                      {/* Performance bar */}
                       <div className="mt-3">
                         <div className="flex justify-between text-xs text-slate-600 mb-1">
                           <span>Performance</span>
@@ -327,7 +304,6 @@ export default function ConfiguradorPage() {
                       </div>
                     </button>
 
-                    {/* Price comparison inline when selected */}
                     {isSelected && <PriceCard part={part} />}
                   </div>
                 )
@@ -335,10 +311,9 @@ export default function ConfiguradorPage() {
             </div>
           </div>
 
-          {/* ── CENTER: 3D Viewer ── */}
+          {/* CENTER: 3D Viewer */}
           <div className="lg:col-span-1">
             <div className="glass-card rounded-2xl border border-white/5 overflow-hidden sticky top-24">
-              {/* 3D Canvas */}
               <div className="h-80 md:h-96 relative">
                 <Canvas camera={{ position: [5, 2, 5], fov: 45 }} shadows>
                   <ambientLight intensity={0.2} />
@@ -360,11 +335,10 @@ export default function ConfiguradorPage() {
                   />
                 </Canvas>
                 <div className="absolute bottom-3 left-3 text-slate-600 text-xs font-inter">
-                  🖱 Arraste para girar • Scroll para zoom
+                  Arraste para girar | Scroll para zoom
                 </div>
               </div>
 
-              {/* Build Summary */}
               <div className="p-5 border-t border-white/5">
                 <div className="space-y-2 mb-4">
                   {CATEGORIES.map((cat) => {
@@ -404,9 +378,8 @@ export default function ConfiguradorPage() {
             </div>
           </div>
 
-          {/* ── RIGHT: Info + Power Calc ── */}
+          {/* RIGHT: Info + Power Calc */}
           <div className="lg:col-span-1 space-y-4">
-            {/* Power Consumption */}
             <div className="glass-card rounded-2xl p-5 border border-white/5">
               <p className="text-slate-500 text-xs font-rajdhani tracking-wider mb-4">CONSUMO DE ENERGIA</p>
               {(() => {
@@ -439,7 +412,6 @@ export default function ConfiguradorPage() {
               })()}
             </div>
 
-            {/* Selected Part Details */}
             {build[activeCategory] && (
               <div className="glass-card rounded-2xl p-5 border border-white/5">
                 <p className="text-slate-500 text-xs font-rajdhani tracking-wider mb-3">PEÇA SELECIONADA</p>
@@ -465,7 +437,6 @@ export default function ConfiguradorPage() {
               </div>
             )}
 
-            {/* Compatibility Tips */}
             <div className="glass-card rounded-2xl p-5 border border-white/5">
               <p className="text-slate-500 text-xs font-rajdhani tracking-wider mb-3">DICAS DE COMPATIBILIDADE</p>
               <div className="space-y-3">
@@ -490,7 +461,7 @@ export default function ConfiguradorPage() {
                 {Object.values(build).every(Boolean) && (
                   <div className="flex items-start gap-3">
                     <div className="w-2 h-2 rounded-full bg-[#00FF94] mt-1.5 flex-shrink-0" />
-                    <p className="text-[#00FF94] font-inter text-xs">Build completa! Veja a compatibilidade com jogos 🎮</p>
+                    <p className="text-[#00FF94] font-inter text-xs">Build completa! Veja a compatibilidade com jogos</p>
                   </div>
                 )}
                 {Object.values(build).every((v) => !v) && (
@@ -499,9 +470,8 @@ export default function ConfiguradorPage() {
               </div>
             </div>
 
-            {/* Go to games button */}
-            <a
-              href="/jogos"
+            <Link
+              to="/jogos"
               className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[#F43F5E]/10 to-[#7C3AED]/10 border border-[#F43F5E]/20 hover:border-[#F43F5E]/40 transition-all group"
             >
               <div>
@@ -509,7 +479,7 @@ export default function ConfiguradorPage() {
                 <p className="text-slate-500 text-xs font-inter">Descubra o que seu PC pode rodar</p>
               </div>
               <ChevronRight size={18} className="text-[#F43F5E] group-hover:translate-x-1 transition-transform" />
-            </a>
+            </Link>
           </div>
         </div>
       </div>

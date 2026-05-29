@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react'
 import { PARTS_CATALOG, PCPart, formatPrice, getLowestPrice } from '@/data/parts'
 import Navbar from '@/components/Navbar'
@@ -305,8 +303,8 @@ export default function PrecosPage() {
             <div>
               <h3 className="font-rajdhani font-600 text-white mb-1">Como funciona a atualização de preços?</h3>
               <p className="text-slate-500 text-sm font-inter leading-relaxed">
-                Os preços são coletados automaticamente todo dia às 6h da manhã via web scraping nas lojas Kabum, Terabyte Shop e Pichau. 
-                Pode haver pequenas variações de centavos em relação ao preço exato do momento da sua visita. 
+                Os preços são coletados automaticamente todo dia às 6h da manhã via web scraping nas lojas Kabum, Terabyte Shop e Pichau.
+                Pode haver pequenas variações de centavos em relação ao preço exato do momento da sua visita.
                 Sempre confirme o preço final no site da loja antes de comprar.
               </p>
             </div>

@@ -1,6 +1,4 @@
-'use client'
-
-import Link from 'next/link'
+import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { ChevronRight, Zap, ChartBar as BarChart2, Gamepad2, Globe, ArrowRight, Star, TrendingDown, Monitor } from 'lucide-react'
 import Navbar from '@/components/Navbar'
@@ -77,7 +75,6 @@ const POPULAR_BUILDS = [
   },
 ]
 
-// Animated counter hook
 function useCounter(target: number, duration = 2000) {
   const [count, setCount] = useState(0)
   const ref = useRef(false)
@@ -102,7 +99,6 @@ function useCounter(target: number, duration = 2000) {
   return count
 }
 
-// Floating particles background
 function Particles() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -130,22 +126,19 @@ export default function HomePage() {
     <main className="min-h-screen bg-[#05050F] grid-bg">
       <Navbar />
 
-      {/* ── HERO ── */}
+      {/* HERO */}
       <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
         <Particles />
 
-        {/* Background glows */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#7C3AED]/10 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#00D4FF]/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative z-10 text-center max-w-5xl mx-auto px-4">
-          {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-[#00D4FF]/20 text-[#00D4FF] text-xs font-rajdhani tracking-widest mb-8 uppercase">
             <Zap size={12} className="animate-pulse" />
             Preços atualizados hoje
           </div>
 
-          {/* Title */}
           <h1 className="font-orbitron font-black text-4xl md:text-6xl lg:text-7xl text-white leading-tight mb-6">
             Monte seu{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D4FF] via-[#7C3AED] to-[#F43F5E] neon-text-blue">
@@ -160,10 +153,9 @@ export default function HomePage() {
             Visualize seu PC montado em 3D, compare preços em tempo real nas maiores lojas do Brasil e descubra exatamente quais jogos você pode rodar.
           </p>
 
-          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/configurador"
+              to="/configurador"
               className="group flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-[#00D4FF] to-[#7C3AED] text-white font-rajdhani font-700 text-lg tracking-wide hover:opacity-90 hover:scale-105 transition-all duration-200 neon-blue"
             >
               <Monitor size={20} />
@@ -171,7 +163,7 @@ export default function HomePage() {
               <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              href="/precos"
+              to="/precos"
               className="flex items-center gap-3 px-8 py-4 rounded-xl glass-card border border-white/10 text-white font-rajdhani font-500 text-lg tracking-wide hover:border-[#00D4FF]/40 hover:text-[#00D4FF] transition-all duration-200"
             >
               <BarChart2 size={20} />
@@ -179,7 +171,6 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Stats Row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
             {STATS.map((stat) => (
               <div key={stat.label} className="glass-card rounded-xl p-4 border border-white/5">
@@ -194,7 +185,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
+      {/* FEATURES */}
       <section className="py-24 max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <p className="text-[#00D4FF] font-rajdhani tracking-widest text-sm uppercase mb-3">Funcionalidades</p>
@@ -207,7 +198,7 @@ export default function HomePage() {
           {FEATURES.map((feat) => (
             <Link
               key={feat.title}
-              href={feat.href}
+              to={feat.href}
               className="group glass-card rounded-2xl p-8 border border-white/5 hover:border-white/10 transition-all duration-300 hover:-translate-y-1"
             >
               <div
@@ -227,7 +218,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── POPULAR BUILDS ── */}
+      {/* POPULAR BUILDS */}
       <section className="py-24 max-w-7xl mx-auto px-4">
         <div className="text-center mb-16">
           <p className="text-[#7C3AED] font-rajdhani tracking-widest text-sm uppercase mb-3">Configurações Prontas</p>
@@ -240,12 +231,11 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {POPULAR_BUILDS.map((build, i) => (
+          {POPULAR_BUILDS.map((build) => (
             <div
               key={build.name}
               className="glass-card rounded-2xl p-6 border border-white/5 relative overflow-hidden group hover:border-white/10 transition-all duration-300"
             >
-              {/* Tier badge */}
               <div
                 className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-orbitron font-bold tracking-widest"
                 style={{ background: `${build.tierColor}15`, color: build.tierColor }}
@@ -258,7 +248,6 @@ export default function HomePage() {
                 {build.price}
               </div>
 
-              {/* Parts */}
               <div className="space-y-2 mb-6">
                 {[
                   { label: 'CPU', value: build.cpu },
@@ -272,7 +261,6 @@ export default function HomePage() {
                 ))}
               </div>
 
-              {/* Games */}
               <div className="border-t border-white/5 pt-4">
                 <p className="text-slate-600 text-xs font-rajdhani tracking-wider mb-2">JOGOS COMPATÍVEIS</p>
                 <div className="flex flex-wrap gap-2">
@@ -289,7 +277,7 @@ export default function HomePage() {
               </div>
 
               <Link
-                href="/configurador"
+                to="/configurador"
                 className="mt-5 w-full py-3 rounded-xl font-rajdhani font-600 text-sm tracking-wide flex items-center justify-center gap-2 transition-all hover:opacity-90"
                 style={{ background: `${build.tierColor}20`, color: build.tierColor, border: `1px solid ${build.tierColor}30` }}
               >
@@ -301,7 +289,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── PRICE COMPARISON PREVIEW ── */}
+      {/* PRICE COMPARISON PREVIEW */}
       <section className="py-24 max-w-7xl mx-auto px-4">
         <div className="glass-card rounded-3xl p-10 border border-white/5 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-80 h-80 bg-[#7C3AED]/5 rounded-full blur-[80px] pointer-events-none" />
@@ -324,13 +312,12 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-              <Link href="/precos" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#F43F5E] text-white font-rajdhani font-600 tracking-wide hover:opacity-90 transition-all hover:scale-105">
+              <Link to="/precos" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#F43F5E] text-white font-rajdhani font-600 tracking-wide hover:opacity-90 transition-all hover:scale-105">
                 Ver Comparativo de Preços
                 <ArrowRight size={16} />
               </Link>
             </div>
 
-            {/* Mini price comparison preview */}
             <div className="space-y-3">
               {[
                 { part: 'RTX 4060 8GB', kabum: 2199, terabyte: 2149, pichau: 2179 },
@@ -360,7 +347,7 @@ export default function HomePage() {
                             R$ {s.price.toLocaleString('pt-BR')}
                           </p>
                           {s.price === lowest && (
-                            <span className="text-[#00FF94] text-xs">✓ Menor</span>
+                            <span className="text-[#00FF94] text-xs">&#10003; Menor</span>
                           )}
                         </div>
                       ))}
@@ -373,7 +360,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA FINAL ── */}
+      {/* CTA FINAL */}
       <section className="py-24 max-w-4xl mx-auto px-4 text-center">
         <div className="glass-card rounded-3xl p-12 border border-[#7C3AED]/20 relative overflow-hidden gradient-border">
           <div className="absolute inset-0 bg-gradient-to-br from-[#7C3AED]/5 to-[#00D4FF]/5 pointer-events-none" />
@@ -392,7 +379,7 @@ export default function HomePage() {
               Gratuito, sem cadastro. Monte agora e descubra quanto vai custar nas melhores lojas do Brasil.
             </p>
             <Link
-              href="/configurador"
+              to="/configurador"
               className="inline-flex items-center gap-3 px-10 py-4 rounded-xl bg-gradient-to-r from-[#00D4FF] to-[#7C3AED] text-white font-rajdhani font-700 text-xl tracking-wide hover:opacity-90 hover:scale-105 transition-all neon-blue"
             >
               <Monitor size={22} />
