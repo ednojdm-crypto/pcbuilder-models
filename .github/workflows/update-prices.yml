@@ -1,0 +1,70 @@
+# =============================================================
+#  GITHUB ACTIONS — Atualização Diária de Preços
+#  Arquivo: .github/workflows/update-prices.yml
+# =============================================================
+#
+#  O que isso faz:
+#  Todo dia de manhã às 6h (horário de Brasília),
+#  o GitHub acorda esse robô automaticamente,
+#  ele roda o script de preços e depois dorme de novo.
+#
+#  Você também pode rodar manualmente a qualquer hora
+#  clicando em "Run workflow" no GitHub.
+# =============================================================
+
+name: 🤖 Atualizar Preços Diariamente
+
+on:
+  # Roda automaticamente todo dia
+  schedule:
+    # Formato: minuto hora dia mês dia-da-semana
+    # "0 9 * * *" = todo dia às 09:00 UTC = 06:00 Brasília (UTC-3)
+    - cron: '0 9 * * *'
+
+  # Permite rodar manualmente pelo painel do GitHub
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: 'Ativar modo debug (mostra mais detalhes)?'
+        required: false
+        default: 'false'
+
+jobs:
+  atualizar-precos:
+    name: Buscar e salvar preços
+    runs-on: ubuntu-latest   # Usa um servidor Linux gratuito do GitHub
+
+    steps:
+      # Passo 1: Baixa o código do repositório
+      - name: 📥 Baixar código
+        uses: actions/checkout@v4
+
+      # Passo 2: Instala o Node.js (necessário para rodar o script)
+      - name: ⚙️ Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Passo 3: Instala as dependências do projeto
+      - name: 📦 Instalar dependências
+        run: npm install
+
+      # Passo 4: Roda o script de atualização de preços
+      #
+      # As variáveis SUPABASE_URL e SUPABASE_KEY ficam
+      # guardadas em segredo no GitHub (veja instruções abaixo)
+      - name: 💰 Atualizar preços
+        run: node scripts/update-prices.js
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+
+      # Passo 5: Avisa se deu erro (opcional mas útil)
+      - name: ✅ Confirmar conclusão
+        if: success()
+        run: echo "Preços atualizados com sucesso em $(date '+%d/%m/%Y %H:%M')"
+
+      - name: ❌ Avisar sobre falha
+        if: failure()
+        run: echo "ERRO na atualização de preços! Verifique os logs acima."
